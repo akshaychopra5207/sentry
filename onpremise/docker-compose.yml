@@ -334,27 +334,16 @@ services:
         read_only: true
         source: ./nginx
         target: /etc/nginx
-      - type: bind
-        read_only: true
-        source: ./certbot/conf
-        target: /etc/nginx/ssl/
-      - type: bind
-        read_only: true
-        source: ./certbot/www
-        target: /var/www/certbot     
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
     depends_on:
       - web
       - relay
   certbot:
     image: certbot/certbot:latest
     volumes:
-      - type: bind
-        read_only: true
-        source: ./certbot/conf
-        target: /etc/letsencrypt
-      - type: bind
-        source: ./certbot/www
-        target: /var/www/certbot        
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw    
 
   relay:
     <<: *restart_policy
