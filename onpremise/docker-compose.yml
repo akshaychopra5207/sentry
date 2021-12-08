@@ -334,10 +334,10 @@ services:
         read_only: true
         source: ./nginx
         target: /etc/nginx
-      # - type: bind
-      #   read_only: true
-      #   source: ./data/certbot/conf
-      #   target: /etc/letsencrypt
+      - type: bind
+        read_only: true
+        source: ./certbot/conf
+        target: /etc/nginx/ssl/
       - type: bind
         read_only: true
         source: ./certbot/www
@@ -348,10 +348,10 @@ services:
   certbot:
     image: certbot/certbot:latest
     volumes:
-      # - type: bind
-      #   read_only: true
-      #   source: ./data/certbot/conf
-      #   target: /etc/letsencrypt
+      - type: bind
+        read_only: true
+        source: ./certbot/conf
+        target: /etc/letsencrypt
       - type: bind
         source: ./certbot/www
         target: /var/www/certbot        
