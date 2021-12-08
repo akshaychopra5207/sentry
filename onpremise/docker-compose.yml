@@ -328,6 +328,7 @@ services:
     <<: *restart_policy
     ports:
       - "$SENTRY_BIND:80/tcp"
+      - "443:443"
     image: "nginx:1.21.4-alpine"
     user: root
     volumes:
